@@ -36,13 +36,13 @@ export function splitIntoSections(str: string): string[] {
 
   for (const char of str) {
     if (/[a-z0-9/]/.test(char)) {
+      currentSection += char;
+    } else if(currentSection.length === 0 && /[A-Z]/.test(char)) {
       currentSection += char.toLowerCase();
     } else if (currentSection) {
       sections.push(currentSection);
       sections.push(char);
       currentSection = "";
-    } else {
-      sections.push(char);
     }
   }
 
