@@ -6,23 +6,27 @@ export const smartMatch = (input: string, searchText: string): Array<TextRange> 
 
   const matches: TextRange[] = [];
   let currentMatchIndex = 0;
+  let inputWordIndex = 0;
 
   for (let i = 0; i < inputSections.length; i++) {
     const inputSection = inputSections[i];
     const searchSection = searchSections[currentMatchIndex];
 
     if (inputSection.startsWith(searchSection)) {
-      matches.push({ from: i, to: i + searchSection.length - 1 });
+      matches.push({
+        from: inputWordIndex + i,
+        to: inputWordIndex + i + (searchSection.length - 1)
+      });
       currentMatchIndex++;
 
-      // If all search sections have been matched, stop searching
       if (currentMatchIndex === searchSections.length) {
         return matches;
       }
+    } else {
+      inputWordIndex += inputSections[i].length - 1;
     }
   }
 
-  // If not all search sections were matched, return null
   return matches;
 };
 
@@ -31,11 +35,14 @@ export function splitIntoSections(str: string): string[] {
   let currentSection = "";
 
   for (const char of str) {
-    if (/[a-zA-Z0-9]/.test(char)) {
+    if (/[a-z0-9/]/.test(char)) {
       currentSection += char.toLowerCase();
     } else if (currentSection) {
       sections.push(currentSection);
+      sections.push(char);
       currentSection = "";
+    } else {
+      sections.push(char);
     }
   }
 
