@@ -31,12 +31,12 @@ describe("findInText", () => {
     expect(ranges).toEqual(validate);
   });
 
-  /*it("is case insensitive", () => {
+  it("is case insensitive", () => {
     const ranges = smartMatch("Paco de lucia", "paco");
     expect(ranges).toEqual(createRanges("{Paco} de lucia"));
-  });*/
+  });
 
-  /*it("ignores spaces or non-alphanumeric chars", () => {
+  it("ignores spaces or non-alphanumeric chars", () => {
     expect(smartMatch("Paco de lucia", "pacode")).toEqual(
       createRanges("{Paco} {de} lucia")
     );
@@ -49,23 +49,23 @@ describe("findInText", () => {
     expect(smartMatch("Vicente.Amigo", "VicenteAm")).toEqual(
       createRanges("{Vicente}.{Am}igo")
     );
-  });*/
+  });
 
-  /*it("matches when initial parts of words are typed", () => {
+  it("matches when initial parts of words are typed", () => {
     const ranges = smartMatch("myCoolFunction.test.ts", "mcofuntt");
     expect(ranges).not.toEqual(null);
     expect(ranges).toEqual(createRanges("{m}y{Co}ol{Fun}ction.{t}est.{t}s"));
-  });*/
+  });
 
-  /*it("merges immediate ranges", () => {
+  it("merges immediate ranges", () => {
     const ranges = smartMatch("someThing", "someTh");
     expect(ranges).not.toEqual(null);
     expect(ranges).toEqual(createRanges("{someTh}ing"));
-  });*/
+  });
 
-  /*it("Prioritizes finding a full match over matching continuously", () => {
+  it("Prioritizes finding a full match over matching continuously", () => {
     const ranges = smartMatch("wccj-130-css-module-types", "wccs");
     expect(ranges).not.toEqual(null);
     expect(ranges).toEqual(createRanges("{wc}cj-130-{cs}s-module-types"));
-  });*/
+  });
 });
